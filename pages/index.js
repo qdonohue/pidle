@@ -17,8 +17,8 @@ export default function Home() {
         <Header />
         <Row />
       </div>
-      <footer className="fixed bottom-0 py-1 pl-[50vw] w-full bg-white text-sm font-light">
-        Created by Quinn Donohue
+      <footer className="fixed bottom-0 py-1 flex w-full place-content-center bg-white text-sm font-light">
+        <span className="">Created by Quinn Donohue</span>
       </footer>
     </div>
   );
