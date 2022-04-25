@@ -9,16 +9,6 @@ const Pidle = ({ solution }) => {
   const [curGuess, setCurGuess] = useState([]);
   const [win, setWin] = useState(false);
 
-  const processGuess = (l, i) => {
-    if (l === solution[i]) {
-      return { value: l, status: CORRECT };
-    } else if (solution.includes(l)) {
-      return { value: l, status: MISPLACED };
-    } else {
-      return { value: l, status: EMPTY };
-    }
-  };
-
   const handleGuess = () => {
     let won = true;
     let processed = [];
