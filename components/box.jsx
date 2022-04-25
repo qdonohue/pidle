@@ -17,7 +17,7 @@ const Box = ({ val, status }) => {
   return (
     <div
       className={
-        "h-12 w-12 border border-black p-2 mx-2 bg-slate-700 text-slate-200 grid place-items-center p-0 m-0 font-bold text-2xl rounded-sm " +
+        "h-12 w-12 border border-black mx-2 bg-slate-700 text-slate-200 grid place-items-center p-0 m-0 font-bold text-2xl rounded-lg " +
         colorString(status)
       }
     >

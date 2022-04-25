@@ -1,15 +1,33 @@
 import Box from "./box";
 import { EMPTY, CORRECT, MISPLACED } from "../misc/constants";
 
-const Row = () => {
-  const test = [1, 2, 3, 4, 5, 6];
+export const ActiveRow = ({ input }) => {
   return (
     <div className="grid grid-flow-col auto-cols-max justify-center">
-      {test.map((v, i) => (
-        <Box val={v} key={i} status={i % 2 ? EMPTY : CORRECT} />
+      {input.map((v, i) => (
+        <Box val={v} key={i} status={EMPTY} />
+      ))}
+      {[...Array(6 - input.length)].map((v, i) => (
+        <Box val="" status={EMPTY} key={i} />
       ))}
     </div>
   );
 };
 
-export default Row;
+export const CompletedRow = ({ input }) => {
+  return (
+    <div className="grid grid-flow-col auto-cols-max justify-center">
+      {input.map((v, i) => (
+        <Box val={v.value} key={i} status={v.status} />
+      ))}
+    </div>
+  );
+};
+
+export const UntouchedRow = () => {
+  return (
+    <div className="grid grid-flow-col auto-cols-max justify-center">
+      {Array(6).fill(<Box val="" status={EMPTY} />)}
+    </div>
+  );
+};
