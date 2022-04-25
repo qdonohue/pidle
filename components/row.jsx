@@ -1,10 +1,13 @@
+import Box from "./box";
+import { EMPTY, CORRECT, MISPLACED } from "../misc/constants";
+
 const Row = () => {
-  const digits = ["1", "1", "1", "1", "1", "1"];
+  const test = [1, 2, 3, 4, 5, 6];
   return (
-    <div class="grid grid-cols-6 gap-4">
-      {digits.map((v) => {
-        return <div>{v}</div>;
-      })}
+    <div className="grid grid-flow-col auto-cols-max justify-center">
+      {test.map((v, i) => (
+        <Box val={v} key={i} status={i % 2 ? EMPTY : CORRECT} />
+      ))}
     </div>
   );
 };
