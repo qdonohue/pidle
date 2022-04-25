@@ -1,5 +1,5 @@
 import Box from "./box";
-import { EMPTY, CORRECT, MISPLACED } from "../misc/constants";
+import { EMPTY } from "../misc/constants";
 
 export const ActiveRow = ({ input }) => {
   return (

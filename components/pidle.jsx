@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { EMPTY, CORRECT, MISPLACED } from "../misc/constants";
+import EndState from "./endstate";
 import { ActiveRow, CompletedRow, UntouchedRow } from "./row";
 
 const Pidle = ({ solution }) => {
@@ -18,13 +19,31 @@ const Pidle = ({ solution }) => {
     }
   };
 
+  const handleGuess = () => {
+    let won = true;
+    let processed = [];
+    for (var i = 0; i < curGuess.length; i++) {
+      const l = curGuess[i];
+      if (l === solution[i]) {
+        processed.push({ value: l, status: CORRECT });
+      } else if (solution.includes(l)) {
+        won = false;
+        processed.push({ value: l, status: MISPLACED });
+      } else {
+        won = false;
+        processed.push({ value: l, status: EMPTY });
+      }
+    }
+    setWin(won);
+    setCurGuess([]);
+    setGuesses([...guesses, processed]);
+    setRow(row + 1);
+  };
+
   const onClickDown = async (event) => {
     // TODO: Check if end of game / finished
-    if (row < 6 && event.key == "Enter") {
-      const processedGuess = curGuess.map((l, i) => processGuess(l, i));
-      setGuesses((guesses) => [...guesses, processedGuess]);
-      setCurGuess([]);
-      setRow(row + 1);
+    if (row < 6 && curGuess.length == 6 && event.key == "Enter") {
+      handleGuess();
     } else if (curGuess.length > 0 && event.key == "Backspace") {
       setCurGuess(curGuess.slice(0, -1));
     } else if (
@@ -46,9 +65,15 @@ const Pidle = ({ solution }) => {
       {guesses.map((v, i) => (
         <CompletedRow input={v} key={i} />
       ))}
-      {row < 6 && <ActiveRow input={curGuess} />}
-      {row < 5 &&
-        [...Array(6 - row - 1)].map((v, i) => <UntouchedRow key={i} />)}
+      {win || row > 5 ? (
+        <EndState won={win} />
+      ) : (
+        <>
+          {!win && row < 6 && <ActiveRow input={curGuess} />}
+          {row < 5 &&
+            [...Array(6 - row - 1)].map((v, i) => <UntouchedRow key={i} />)}
+        </>
+      )}
     </div>
   );
 };
